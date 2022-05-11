@@ -1,5 +1,5 @@
 public with sharing class ProductController {
-    static Integer PAGE_SIZE = 9;
+    static Integer pageSize = 9;
 
     public class Filters {
         @AuraEnabled
@@ -13,7 +13,9 @@ public with sharing class ProductController {
 
     @AuraEnabled(Cacheable=true)
     public static PagedResult getProducts(Filters filters, Integer pageNumber) {
-        String key, whereClause = '';
+        String key, 
+        whereClause = '';
+
         Decimal maxPrice;
         String[] family = new List<String>{};
         if (filters != null) {
