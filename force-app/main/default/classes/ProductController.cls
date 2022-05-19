@@ -27,14 +27,14 @@ public with sharing class ProductController {
             }
             if (filters.maxPrice >= 0) {
                 maxPrice = filters.maxPrice;
-                family.add('Product_Price__c <= :maxPrice');
+                family.add('Price__c <= :maxPrice');
             }
             
             if (family.size() > 0) {
                 whereClause = 'WHERE ' + String.join(family, ' AND ');
             }
         }
-        Integer pageSize = ProductController.PAGE_SIZE;
+        Integer pageSize = ProductController.pageSize;
         Integer offset = (pageNumber - 1) * pageSize;
         PagedResult result = new PagedResult();
         result.pageSize = pageSize;
@@ -43,7 +43,7 @@ public with sharing class ProductController {
             'SELECT count() FROM Product2 ' + whereClause
         );
         result.records = Database.query(
-            'SELECT Id, Name, Product_Price__c, Description__c, Family, Product_Photo__c, FROM Product2 ' +
+            'SELECT Id, Name, Price__c, Description, Family, Photo_URL__c FROM Product2 ' +
             whereClause +
             ' WITH SECURITY_ENFORCED' +
             ' ORDER BY Name LIMIT :pageSize OFFSET :offset'
@@ -57,10 +57,10 @@ public with sharing class ProductController {
             SELECT
                 Id,
                 Name,
-                Product_Price__c,
+                Price__c,
                 Description,
                 Family,
-                Product_Photo__c
+                Photo_URL__c
             FROM Product2
             WHERE Family = :familyId AND Id != :productId
             WITH SECURITY_ENFORCED

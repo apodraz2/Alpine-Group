@@ -7,7 +7,40 @@
                     onchange={handleSearchKeyChange}
                 ></lightning-input>
                 <section>
-                    
+                    <lightning-slider
+                        label="Max Price"
+                        step="1"
+                        min="0"
+                        max="250"
+                        value={maxPrice}
+                        onchange={handleMaxPriceChange}
+                    ></lightning-slider>
+                </section>
+                <section>
+                    <h1>Family</h1>
+                    <template if:true={families.data}>
+                        <template
+                            for:each={families.data.values}
+                            for:item="family"
+                        >
+                            <lightning-input
+                                key={family.value}
+                                label={family.label}
+                                data-filter="families"
+                                data-value={family.value}
+                                type="checkbox"
+                                checked
+                                onchange={handleCheckboxChange}
+                            ></lightning-input>
+                        </template>
+                    </template>
+                    <template if:true={families.error}>
+                        <c-error-panel
+                            type="inlineMessage"
+                            friendly-message="Error loading families"
+                            errors={families.error}
+                        ></c-error-panel>
+                    </template>
                 </section>
         </div>
     </lightning-card>

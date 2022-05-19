@@ -1,27 +1,27 @@
 import { LightningElement, api } from 'lwc';
 
 /**
- * A presentation component to display a Product__c sObject. The provided
- * Product__c data must contain all fields used by this component.
+ * A presentation component to display a Product2 sObject. The provided
+ * Product2 data must contain all fields used by this component.
  */
 export default class ProductTile extends LightningElement {
     /** Whether the tile is draggable. */
     @api draggable;
 
     _product;
-    /** Product__c to display. */
+    /** Product2 to display. */
     @api
     get product() {
         return this._product;
     }
     set product(value) {
         this._product = value;
-        this.pictureUrl = value.Product_Photo__c;
+        this.pictureUrl = value.Photo_URL__c;
         this.name = value.Name;
-        this.price = value.Product_Price__c;
+        this.price = value.Price__c;
     }
 
-    /** Product__c field values to display. */
+    /** Product2 field values to display. */
     pictureUrl;
     name;
     price;
